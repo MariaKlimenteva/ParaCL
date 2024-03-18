@@ -1,7 +1,33 @@
 Global Node
-While Node 
+{ Assignment Node 
+{ 
+Id Node 
 {
-Input Node
+   ID: 1
+}
+Num Node 
+{ type: value_node 
+    { value: 0
+    }
+}
+ 
+}
+}
+If Node 
+{ 
+Operator Node 
+{ 
+Id Node 
+{
+   ID: 1
+}
+Num Node 
+{ type: value_node 
+    { value: 0
+    }
+}
+ 
+}
 Global Node
 Output Node
  

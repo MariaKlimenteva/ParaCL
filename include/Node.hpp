@@ -97,7 +97,7 @@ class IfNode final: public ASTNode {
 
     void dump_ast(std::ofstream& dump_file) override {
         dump_file << "If Node \n{ " << std::endl;
-        
+
         if(condition != 0) { condition->dump_ast(dump_file); }
 
         if(body != 0) { body->dump_ast(dump_file); }
@@ -127,8 +127,8 @@ class WhileNode final: public ASTNode {
     }
     void dump_ast(std::ofstream& dump_file) override {
         dump_file << "While Node \n{" << std::endl;
-        condition->dump_ast(dump_file);
-        block->dump_ast(dump_file);
+        condition->dump_ast(dump_file); 
+        if(block != 0) { block->dump_ast(dump_file); }
         dump_file << " \n}" << std::endl;
     }
 
