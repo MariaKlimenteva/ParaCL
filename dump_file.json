@@ -13,6 +13,7 @@ Num Node
  
 }
 }
+Output Node
 If Node 
 { 
 Operator Node 
@@ -28,7 +29,5 @@ Num Node
 }
  
 }
-Global Node
-Output Node
  
 }

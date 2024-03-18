@@ -85,20 +85,25 @@ class IfNode final: public ASTNode {
     ASTNode(scope, NodeType::If) {};
 
     int calculate() override {
-
+        // std::cout << body << std::endl;
+        // std::cout << else_block << std::endl;
         if(condition->calculate()) {
-            
-            return body->calculate();
+            if(body != 0) {
+                return body->calculate();
+            }
         }
         else {
-            return else_block->calculate();
+            if(else_block != 0) {
+                return else_block->calculate();
+            }
         }
+        return 0;
     }
 
     void dump_ast(std::ofstream& dump_file) override {
         dump_file << "If Node \n{ " << std::endl;
 
-        if(condition != 0) { condition->dump_ast(dump_file); }
+        condition->dump_ast(dump_file);
 
         if(body != 0) { body->dump_ast(dump_file); }
 
