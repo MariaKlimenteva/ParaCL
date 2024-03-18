@@ -97,8 +97,10 @@ class IfNode final: public ASTNode {
 
     void dump_ast(std::ofstream& dump_file) override {
         dump_file << "If Node \n{ " << std::endl;
-        condition->dump_ast(dump_file);
-        body->dump_ast(dump_file);
+        
+        if(condition != 0) { condition->dump_ast(dump_file); }
+
+        if(body != 0) { body->dump_ast(dump_file); }
 
         if(else_block != 0) { else_block->dump_ast(dump_file); }
         
