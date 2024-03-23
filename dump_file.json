@@ -5,29 +5,31 @@ Id Node
 {
    ID: 1
 }
+{ Assignment Node 
+{ 
+Id Node 
+{
+   ID: 2
+}
+Operator Node 
+{ 
 Num Node 
 { type: value_node 
-    { value: 0
+    { value: 1
     }
+}
+Num Node 
+{ type: value_node 
+    { value: 2
+    }
+}
+ 
+}
+ 
+}
 }
  
 }
 }
 Output Node
-If Node 
-{ 
-Operator Node 
-{ 
-Id Node 
-{
-   ID: 1
-}
-Num Node 
-{ type: value_node 
-    { value: 0
-    }
-}
- 
-}
- 
-}
+Output Node

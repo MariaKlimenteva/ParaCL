@@ -5,11 +5,12 @@
 %defines
 %define api.value.type variant
 %param { yy::Driver* driver }
+// %option yylineno
 
 %code requires
 {
-    
     #include <iostream>
+    
     #include <string>
     #include <unordered_map>
 
@@ -19,7 +20,6 @@
     #include <memory>
     
     namespace yy { class Driver; }
- 
 }
 
 %code
@@ -27,6 +27,7 @@
     #include "include/driver.hpp"
     extern std::shared_ptr<ScopeNode> currentScope;
     extern char* yytext;
+    
 
     namespace yy { parser::token_type yylex(parser::semantic_type* yyval, Driver* driver); }
 }
@@ -128,17 +129,17 @@ close_sc: "}"
 stmt: stmt_1 | stmt_2               
 ;
 
-stmt_1:   assign_stmt   
-
-| PRINT expr ";"                      
+stmt_1: PRINT expr ";"                      
 {
     std::dynamic_pointer_cast<GlobalAst>(driver->globalAstNode)->
     create_child(std::shared_ptr<ASTNode>(new OutputNode($2, driver->currentScope)));
 }
 
-| scope
+| scope 
 
-| expr ";" 
+| expr ";" {
+    std::dynamic_pointer_cast<GlobalAst>(driver->globalAstNode)->create_child($1); 
+} 
 
 | IF "(" expr ")" stmt_1 ELSE stmt_1    
 { 
@@ -173,10 +174,8 @@ stmt_2: IF "(" expr ")" stmt
 }
 ;
 
-assign_stmt: SetId "=" expr ";"          
-{    
-    std::dynamic_pointer_cast<GlobalAst>(driver->globalAstNode)->
-    create_child(std::shared_ptr<ASTNode>(new AssignmentNode($1, $3, driver->currentScope)));                                    
+assign_stmt: SetId "=" expr {
+    $$ = std::shared_ptr<ASTNode>(new AssignmentNode($1, $3, driver->currentScope));
 }
 ;
 
@@ -281,6 +280,7 @@ primary_expr: MINUS primary_expr
 }
 
 | GetId 
+| assign_stmt
      
 ;
 

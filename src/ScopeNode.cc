@@ -26,6 +26,7 @@ int ScopeNode::getIdFromGetVariable(const std::string name) {
     }
     else {
         std::cout << "undeclared variable error" << std::endl;
+        
         return -1;
     }
 }

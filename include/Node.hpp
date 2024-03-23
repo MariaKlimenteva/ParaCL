@@ -85,8 +85,7 @@ class IfNode final: public ASTNode {
     ASTNode(scope, NodeType::If) {};
 
     int calculate() override {
-        // std::cout << body << std::endl;
-        // std::cout << else_block << std::endl;
+
         if(condition->calculate()) {
             if(body != 0) {
                 return body->calculate();
@@ -163,7 +162,7 @@ class AssignmentNode: public ASTNode {
 inline int AssignmentNode::calculate() {
     scope->lookup(lval->calculate())->value = ((right->get_type() == NodeType::Id) ? 
     scope->lookup(right->calculate())->value : right->calculate());
-    return 0;
+    return 1;
 };
 //---------------------------------------------------------
 class UnaryNode: public ASTNode {
