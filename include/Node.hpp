@@ -74,6 +74,23 @@ class BinaryNode final: public ASTNode {
     ~BinaryNode() {};
 };
 //---------------------------------------------------------
+class UnaryNode: public ASTNode {
+    UnaryOp Op;
+    std::shared_ptr<ASTNode> operand;
+
+    public:
+    UnaryNode(UnaryOp Op, std::shared_ptr<ASTNode> operand, std::shared_ptr<ScopeNode> scope): Op(Op), 
+    operand(operand), ASTNode(scope, NodeType::Operation) {};
+
+    int calculate() override;
+
+    void dump_ast(std::ofstream& dump_file) override {
+        dump_file << "Unary Node\n{ " << std::endl;
+        dump_file << operand << std::endl;
+        dump_file << " \n}" << std::endl;
+    };
+};
+//---------------------------------------------------------
 class IfNode final: public ASTNode {
     std::shared_ptr<ASTNode> condition;
     std::shared_ptr<ASTNode> body;
@@ -163,21 +180,6 @@ inline int AssignmentNode::calculate() {
     scope->lookup(lval->calculate())->value = ((right->get_type() == NodeType::Id) ? 
     scope->lookup(right->calculate())->value : right->calculate());
     return scope->lookup(lval->calculate())->value;
-};
-//---------------------------------------------------------
-class UnaryNode: public ASTNode {
-    UnaryOp Op;
-    std::shared_ptr<ASTNode> operand;
-
-    public:
-    UnaryNode(UnaryOp Op, std::shared_ptr<ASTNode> operand, std::shared_ptr<ScopeNode> scope): Op(Op), 
-    operand(operand), ASTNode(scope, NodeType::Operation) {};
-
-    int calculate() override;
-
-    void dump_ast(std::ofstream& dump_file) override {
-
-    };
 };
 //---------------------------------------------------------
 class InputNode: public ASTNode {

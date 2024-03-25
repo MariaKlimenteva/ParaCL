@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Компилируем проект
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++
 cmake --build build
 
@@ -13,13 +12,13 @@ correct_answers_dir="correct_answers"
 # Директория с файлами ввода
 input_files_dir="input_files"
 
-# Проверяем, существует ли директория с правильными ответами
+# Существует ли директория с правильными ответами
 if [ ! -d "$correct_answers_dir" ]; then
     echo "Директория с правильными ответами не найдена!"
     exit 1
 fi
 
-# Проверяем, существует ли директория с файлами ввода
+# Есть ли директория с файлами ввода
 if [ ! -d "$input_files_dir" ]; then
     echo "Директория с файлами ввода не найдена!"
     exit 1

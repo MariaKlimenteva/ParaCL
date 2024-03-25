@@ -52,6 +52,7 @@
     AND             "&&"
     OR              "||"
     QUESTION_MARK   "?"
+    NEGATE          "!"
 
     IF              "if"
     WHILE           "while"
@@ -227,7 +228,10 @@ bool_expr: bool_expr GREATEREQ arith_expr
 { 
     $$ = std::shared_ptr<ASTNode>(new BinaryNode($1, BinaryOp::NonEqual, $3, driver->currentScope)); 
 }
-
+| NEGATE arith_expr 
+{
+    $$ = std::shared_ptr<ASTNode>(new UnaryNode(UnaryOp::Negate, $2, driver->currentScope)); 
+}
 | arith_expr                               
 ;
 

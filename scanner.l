@@ -34,6 +34,7 @@ print               return yy::parser::token_type::PRINT;
 ">="                return yy::parser::token_type::GREATEREQ;
 "!="                return yy::parser::token_type::NONEQUAL;
 "=="                return yy::parser::token_type::EQUAL;
+"!"                 return yy::parser::token_type::NEGATE;
 
 "{"                 return yy::parser::token_type::LBRACE;
 "}"                 return yy::parser::token_type::RBRACE;

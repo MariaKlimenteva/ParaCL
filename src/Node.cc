@@ -43,8 +43,8 @@ int UnaryNode::calculate() {
             return operandValue + 1;
         case UnaryOp::Decrement:
             return operandValue - 1;
-        // case UnaryOp::Negate:
-        //     return !operandValue;
+        case UnaryOp::Negate:
+            return !operandValue;
         default:
             throw std::runtime_error("Unknown UnaryOpType");
     }
