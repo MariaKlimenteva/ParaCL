@@ -228,10 +228,17 @@ bool_expr: bool_expr GREATEREQ arith_expr
 { 
     $$ = std::shared_ptr<ASTNode>(new BinaryNode($1, BinaryOp::NonEqual, $3, driver->currentScope)); 
 }
-| NEGATE arith_expr 
+
+| arith_expr PLUS PLUS 
 {
-    $$ = std::shared_ptr<ASTNode>(new UnaryNode(UnaryOp::Negate, $2, driver->currentScope)); 
+    $$ = std::shared_ptr<ASTNode>(new UnaryNode(UnaryOp::Increment, $1, driver->currentScope));
 }
+| arith_expr MINUS MINUS 
+{
+    $$ = std::shared_ptr<ASTNode>(new UnaryNode(UnaryOp::Decrement, $1, driver->currentScope));
+}
+
+
 | arith_expr                               
 ;
 
@@ -262,17 +269,20 @@ term: term MULTIPLY primary_expr
 | primary_expr                              
 ;
 
-primary_expr: MINUS primary_expr            
+primary_expr:  MINUS primary_expr            
 { 
     $$ = std::shared_ptr<ASTNode>(new UnaryNode(UnaryOp::Minus, $2, driver->currentScope)); 
 }
-       
-| "(" expr ")"                              
+    
+|"(" expr ")"                              
 { 
     $$ = $2; 
 }
 
-       
+| NEGATE primary_expr
+{
+    $$ = std::shared_ptr<ASTNode>(new UnaryNode(UnaryOp::Negate, $2, driver->currentScope)); 
+}       
 | NUM                                       
 { 
     $$ = std::shared_ptr<ASTNode>(new NumNode($1, driver->currentScope)); 
