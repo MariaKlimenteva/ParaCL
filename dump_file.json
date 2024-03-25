@@ -3,30 +3,12 @@ Global Node
 { 
 Id Node 
 {
-   ID: 1
-}
-{ Assignment Node 
-{ 
-Id Node 
-{
    ID: 2
 }
-Operator Node 
-{ 
 Num Node 
 { type: value_node 
-    { value: 1
+    { value: 6
     }
-}
-Num Node 
-{ type: value_node 
-    { value: 2
-    }
-}
- 
-}
- 
-}
 }
  
 }

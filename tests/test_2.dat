@@ -1,6 +1,6 @@
 fst = 2;
 snd = 1;
-//iters = ?;
+
 iter = 2;
 while (iter > 0) {
     iter = iter - 1;
@@ -8,4 +8,3 @@ while (iter > 0) {
 }
 
 print snd; 
-//print a;
