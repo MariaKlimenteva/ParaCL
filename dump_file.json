@@ -1,17 +1,6 @@
 Global Node
-{ Assignment Node 
+Unary Node
 { 
-Id Node 
-{
-   ID: 2
-}
-Num Node 
-{ type: value_node 
-    { value: 6
-    }
-}
+0x604000000310
  
 }
-}
-Output Node
-Output Node

@@ -34,15 +34,21 @@ int BinaryNode::calculate() {
 //---------------------------------------------------------
 // UnaryNode implementation
 int UnaryNode::calculate() {
-    int operandValue = operand->calculate();
+    if(scope->lookup(operand->calculate()) == nullptr) { std::cout << "There is no such variable" << std::endl; return 0; };
+
+    int operandValue = scope->lookup(operand->calculate())->value;
 
     switch (Op) {
         case UnaryOp::Minus:
             return -operandValue;
         case UnaryOp::Increment:
-            return operandValue + 1;
+            operandValue = operandValue + 1;
+            scope->lookup(operand->calculate())->value = operandValue;
+            return operandValue;
         case UnaryOp::Decrement:
-            return operandValue - 1;
+            operandValue = operandValue - 1;
+            scope->lookup(operand->calculate())->value = operandValue;
+            return operandValue;
         case UnaryOp::Negate:
             return !operandValue;
         default:
